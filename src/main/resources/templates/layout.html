@@ -21,9 +21,8 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/primeui-4.1.15/primeui-all.min.css}" />
 
+<link rel="stylesheet" type="text/css" th:href="@{/app/css/layout.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/app/css/main.css}" />
-
-<th:block layout:fragment="styles"></th:block>
 
 </head>
 <body>
@@ -54,6 +53,13 @@
 							class="dropdown-item" href="#">Another action</a> <a
 							class="dropdown-item" href="#">Something else here</a>
 					</div></li>
+
+				<li class="nav-item">
+					<form id="logout-form" th:action="@{/logout}" method="post">
+						<a class="nav-link" href="#"
+							onclick="javascript:$('#logout-form').submit()">Cerrar Sesión</a>
+					</form>
+				</li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="text" placeholder="Search"
@@ -63,28 +69,25 @@
 		</div>
 	</nav>
 
-	<main role="main"> <!-- Main jumbotron for a primary marketing message or call to action -->
-	<div class="jumbotron">
-		<div class="container">
-			<h1 class="display-3">Hello, world!</h1>
-			<p>This is a template for a simple marketing or informational
-				website. It includes a large callout called a jumbotron and three
-				supporting pieces of content. Use it as a starting point to create
-				something more unique.</p>
-			<p>
-				<a class="btn btn-primary btn-lg" href="#" role="button">Learn
-					more &raquo;</a>
-			</p>
+	<main role="main">
+		<div class="jumbotron">
+			<div class="container">
+				<h1 class="display-3">Hello, world!</h1>
+				<p>This is a template for a simple marketing or informational
+					website. It includes a large callout called a jumbotron and three
+					supporting pieces of content. Use it as a starting point to create
+					something more unique.</p>
+				<p>
+					<a class="btn btn-primary btn-lg" href="#" role="button">Learn
+						more &raquo;</a>
+				</p>
+			</div>
 		</div>
-	</div>
-
-	<div class="container">
-	
-		<div layout:fragment="content"></div>
-		
-
-	</div>
-	<!-- /container --> </main>
+		<div class="container">
+			<div layout:fragment="content"></div>
+			<hr>
+		</div>
+	</main>
 
 	<footer class="container">
 		<p>&copy; Company 2017-2018</p>

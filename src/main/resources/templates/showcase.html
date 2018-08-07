@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<div layout:fragment="content">
+
+	<div class="row">
+		<h2>Showcase</h2>
+	</div>
+
+</div>
+
+<th:block layout:fragment="scripts">
+	<script type="text/javascript">
+		/*<![CDATA[*/
+		$(document).ready(function() {
+			alert('protected page');
+		});
+		/*]]>*/
+	</script>
+</th:block>
+
+</html>
