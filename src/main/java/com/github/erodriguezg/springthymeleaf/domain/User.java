@@ -28,7 +28,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank
 	@Email
 	@Size(max = 100)
@@ -46,13 +46,16 @@ public class User implements Serializable {
 	@Size(max = 255)
 	private String password;
 
+	@NotBlank
+	@Size(max = 20)
+	private String telefonoMovil;
+
+	@Size(max = 20)
+	private String telefonoFijo;
+
 	@NotNull
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "users_profiles",
-			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-			inverseJoinColumns =  @JoinColumn(name = "profile_code", referencedColumnName = "code")
-	)
+	@JoinTable(name = "users_profiles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "profile_code", referencedColumnName = "code"))
 	private List<Profile> profiles;
 
 	public Long getId() {
@@ -102,7 +105,7 @@ public class User implements Serializable {
 	public void setProfiles(List<Profile> profiles) {
 		this.profiles = profiles;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + "]";
@@ -133,5 +136,5 @@ public class User implements Serializable {
 		}
 		return true;
 	}
-	
+
 }

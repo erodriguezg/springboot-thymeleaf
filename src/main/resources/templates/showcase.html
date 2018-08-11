@@ -9,15 +9,60 @@
 		<h2>Showcase</h2>
 	</div>
 
+	<form th:object="${showcaseForm}" method="post">
+		<div class="form-group">
+			<label for="regionCode">Región</label> 
+			<select th:field="*{regionCode}" required="required" class="form-control">
+				<option value="">- Seleccione -</option>
+				<option th:each="region : ${regiones}" th:value="${region.code}" th:text="${region.nombre}" />
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="provinciaCode">Provincia</label> 
+			<select th:field="*{provinciaCode}" required="required" class="form-control">
+				<th:block th:fragment="provincias">
+					<option value="">- Seleccione -</option>
+					<option th:each="prov : ${provincias}" th:value="${prov.code}" th:text="${prov.nombre}" />
+				</th:block>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="comunaCode">Comuna</label> 
+			<select th:field="*{comunaCode}" required="required" class="form-control">
+				<th:block th:fragment="comunas">
+					<option value="">- Seleccione -</option>
+					<option th:each="com : ${comunas}" th:value="${com.code}" th:text="${com.nombre}" />
+				</th:block>
+			</select>
+		</div>
+	</form>
+
 </div>
 
 <th:block layout:fragment="scripts">
-	<script type="text/javascript">
-		/*<![CDATA[*/
-		$(document).ready(function() {
-			alert('protected page');
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		
+		$(function() {
+			
+			$('#regionCode').on('change', function() {
+				loadProvincias();
+			});
+			
+			$('#provinciaCode').on('change', function() {
+				loadComunas();
+			});
 		});
-		/*]]>*/
+	
+		function loadProvincias() {
+			$("#provinciaCode").load( /*[[@{/showcase/provincias}]]*/ 'url', $("#regionCode").serialize(), function() { loadComunas(); });
+		}
+		
+		function loadComunas() {
+			$("#comunaCode").load(/*[[@{/showcase/comunas}]]*/ 'url', $("#provinciaCode").serialize());
+		}
+		
+	/*]]>*/
 	</script>
 </th:block>
 

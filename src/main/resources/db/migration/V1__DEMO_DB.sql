@@ -4,6 +4,8 @@ create table users (
 	first_name varchar(50),
 	last_name varchar(50),
 	password varchar(255),
+	telefono_movil varchar(20),
+	telefono_fijo varchar(20),
 	primary key (id),
 	constraint user_uq unique (email)
 );
