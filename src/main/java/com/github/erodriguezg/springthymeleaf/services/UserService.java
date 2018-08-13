@@ -18,4 +18,16 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 
+	public User findById(Long id) {
+		return userRepository.findById(id).orElse(null);
+	}
+
+	public boolean emailDisponible(String email, Long userId) {
+		User userByEmail = userRepository.findByEmail(email);
+		if(userByEmail == null) {
+			return true;
+		}
+		return userByEmail.getId().equals(userId);
+	}
+
 }
