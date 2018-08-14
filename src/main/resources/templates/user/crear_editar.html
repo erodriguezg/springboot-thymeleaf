@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<div layout:fragment="content">
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3" th:text="#{crear-usuario}"> Titulo </h1>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 order-md-1">
+				<h4 class="mb-3" th:text="#{datos-generales}">Subtitulo</h4>
+				<form class="needs-validation" th:object="${crearEditarUserForm}" >
+				
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="email" th:text="#{email}">Email <span class="text-muted">*</span></label>
+							<input type="email" class="form-control" th:field="*{user.email}" th:placeholder="#{correo-ejemplo}" required="required" />
+							<div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="profile" th:text="#{perfil}"> <span class="text-muted">*</span></label>
+							<select th:field="*{profile.code}" required="required" class="form-control">
+								<option th:text="#{option.seleccione}" value=""> </option>
+							</select>
+							<div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
+						</div>
+					</div>
+				
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="firstName" th:text="#{nombres}">First name</label> 
+							<input th:field="*{user.firstName}" type="text" class="form-control" placeholder="" value="" required="required" />
+							<div class="invalid-feedback">Valid first name is required.</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="lastName" th:text="#{apellidos}">Last name</label> 
+							<input th:field="*{user.lastName}" type="text" class="form-control" placeholder="" value="" required="required" />
+							<div class="invalid-feedback">Valid last name is required.</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="mobilePhone" th:text="#{telefono-movil}"> </label> 
+							<input th:field="*{user.telefonoMovil}" type="tel" class="form-control"  placeholder="" value="" required="required" />
+							<div class="invalid-feedback">Valid is required.</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="phone" th:text="#{telefono-fijo}">Last name</label> 
+							<input th:field="*{user.telefonoFijo}" type="tel" class="form-control" placeholder="" value="" />
+							<div class="invalid-feedback">Valid is required.</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="password" th:text="#{password}"> </label> 
+							<input th:field="*{user.password}" type="password" class="form-control" placeholder="" value="" required="required" />
+							<div class="invalid-feedback">Valid is required.</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="confirmarPassword" th:text="#{confirmar-password}"> </label> 
+							<input th:field="*{confirmPassword}" class="form-control" placeholder="" value="" required="required"/>
+							<div class="invalid-feedback">Valid is required.</div>
+						</div>
+					</div>
+	
+					<hr class="mb-4">
+					
+					<button class="btn btn-primary btn-lg btn-block" type="submit" th:text="#{guardar}"> </button>
+					<button class="btn btn-seconday btn-lg btn-block" type="submit" th:text="#{cancelar}"> </button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<th:block layout:fragment="scripts">
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		/*]]>*/
+	</script>
+</th:block>
+
+</html>

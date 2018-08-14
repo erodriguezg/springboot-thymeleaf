@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.erodriguezg.springthymeleaf.domain.User;
-import com.github.erodriguezg.springthymeleaf.form.EditarCrearUserForm;
+import com.github.erodriguezg.springthymeleaf.form.CrearEditarUserForm;
 import com.github.erodriguezg.springthymeleaf.services.UserService;
 
 @Controller
-@PreAuthorize("hasRole('Administrador')")
+@PreAuthorize("hasAnyAuthority('Administrador')")
 @RequestMapping("/users")
 public class UserEditarCrearController {
 	
@@ -34,7 +34,7 @@ public class UserEditarCrearController {
 
 	
 	@GetMapping("/crear-editar")
-	public String iniciarCrearEditar(@RequestParam Long id, Model model) {
+	public String iniciarCrearEditar(@RequestParam(required = false) Long id, Model model) {
 		log.debug("inciarCrearEditar -> id: {}", id);
 		
 		User user;
@@ -48,11 +48,11 @@ public class UserEditarCrearController {
 			user = new User();
 		}
 		
-		EditarCrearUserForm form = new EditarCrearUserForm();
+		CrearEditarUserForm form = new CrearEditarUserForm();
 		form.setModoEditar(modoEditar);
 		form.setUser(user);
 		
-		model.addAttribute(new EditarCrearUserForm());
+		model.addAttribute(new CrearEditarUserForm());
 		return "user/crear_editar";
 	}
 	

@@ -105,10 +105,29 @@ public class User implements Serializable {
 	public void setProfiles(List<Profile> profiles) {
 		this.profiles = profiles;
 	}
+	
+	public String getTelefonoMovil() {
+		return telefonoMovil;
+	}
+
+	public void setTelefonoMovil(String telefonoMovil) {
+		this.telefonoMovil = telefonoMovil;
+	}
+
+	public String getTelefonoFijo() {
+		return telefonoFijo;
+	}
+
+	public void setTelefonoFijo(String telefonoFijo) {
+		this.telefonoFijo = telefonoFijo;
+	}
+	
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+		return "User [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", password=" + password + ", telefonoMovil=" + telefonoMovil + ", telefonoFijo=" + telefonoFijo
+				+ "]";
 	}
 
 	@Override

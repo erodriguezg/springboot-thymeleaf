@@ -5,38 +5,43 @@
 
 <div layout:fragment="content">
 
-	<div class="row">
-		<h2>Showcase</h2>
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3">Showcase!</h1>
+		</div>
 	</div>
 
-	<form th:object="${showcaseForm}" method="post">
-		<div class="form-group">
-			<label for="regionCode">Región</label> 
-			<select th:field="*{regionCode}" required="required" class="form-control">
-				<option value="" th:text="#{option.seleccione}"> </option>
-				<option th:each="region : ${regiones}" th:value="${region.code}" th:text="${region.nombre}" />
-			</select>
+	<div class="container">
+		<div class="row">
+			<form th:object="${showcaseForm}" method="post">
+				<div class="form-group">
+					<label for="regionCode">Región</label> 
+					<select th:field="*{regionCode}" required="required" class="form-control">
+						<option value="" th:text="#{option.seleccione}"> </option>
+						<option th:each="region : ${regiones}" th:value="${region.code}" th:text="${region.nombre}" />
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="provinciaCode">Provincia</label> 
+					<select th:field="*{provinciaCode}" required="required" class="form-control">
+						<th:block th:fragment="provincias">
+							<option value="" th:text="#{option.seleccione}"> </option>
+							<option th:each="prov : ${provincias}" th:value="${prov.code}" th:text="${prov.nombre}" />
+						</th:block>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="comunaCode">Comuna</label> 
+					<select th:field="*{comunaCode}" required="required" class="form-control">
+						<th:block th:fragment="comunas">
+							<option value="" th:text="#{option.seleccione}"> </option>
+							<option th:each="com : ${comunas}" th:value="${com.code}" th:text="${com.nombre}" />
+						</th:block>
+					</select>
+				</div>
+			</form>
 		</div>
-		<div class="form-group">
-			<label for="provinciaCode">Provincia</label> 
-			<select th:field="*{provinciaCode}" required="required" class="form-control">
-				<th:block th:fragment="provincias">
-					<option value="" th:text="#{option.seleccione}"> </option>
-					<option th:each="prov : ${provincias}" th:value="${prov.code}" th:text="${prov.nombre}" />
-				</th:block>
-			</select>
-		</div>
-		<div class="form-group">
-			<label for="comunaCode">Comuna</label> 
-			<select th:field="*{comunaCode}" required="required" class="form-control">
-				<th:block th:fragment="comunas">
-					<option value="" th:text="#{option.seleccione}"> </option>
-					<option th:each="com : ${comunas}" th:value="${com.code}" th:text="${com.nombre}" />
-				</th:block>
-			</select>
-		</div>
-	</form>
-
+	</div>
 </div>
 
 <th:block layout:fragment="scripts">
