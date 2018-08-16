@@ -1,0 +1,11 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<th:block th:fragment="profiles">
+	<option th:text="#{option.seleccione}" value=""></option>
+	<option th:each="profile : ${profiles}" th:value="${profile.code}" th:text="${profile.name}" />
+</th:block>
+
+</html>

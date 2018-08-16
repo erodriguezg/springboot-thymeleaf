@@ -2,6 +2,7 @@ package com.github.erodriguezg.springthymeleaf.config;
 
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
 public class I18NConfig implements WebMvcConfigurer  {
+	
+	@Autowired
+	private ProfileConfig profileConfig;
 	
 	@Bean
 	public LocaleResolver localeResolver() {
@@ -33,7 +37,9 @@ public class I18NConfig implements WebMvcConfigurer  {
 	    messageSource.setBasename("i18n/messages");
 	    messageSource.setUseCodeAsDefaultMessage(true);
 	    messageSource.setFallbackToSystemLocale(false);
-	    messageSource.setCacheSeconds(0); //NO USAR EN 0 PARA PRODUCTIVO!
+	    if(profileConfig.isDevModeActive()) {
+	    	 messageSource.setCacheSeconds(0); //NO USAR EN 0 PARA PRODUCTIVO!
+	    }
 	    messageSource.setDefaultEncoding("ISO-8859-1");
 	    return messageSource;
 	}

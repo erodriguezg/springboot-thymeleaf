@@ -117,6 +117,33 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<!-- pruebas de integracion con verify -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>integration-test</goal>
+						</goals>
+						<configuration>
+							<skipAfterFailureCount>1</skipAfterFailureCount>
+							<excludes>
+								<exclude>%regex[.*Test.*|.*Not.*]</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>verify</id>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
 		</plugins>
 	</build>
 

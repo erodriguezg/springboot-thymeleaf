@@ -26,7 +26,7 @@
 						<div class="col-md-6 mb-3">
 							<label for="profile" th:text="#{perfil}"> <span class="text-muted">*</span></label>
 							<select th:field="*{profile.code}" required="required" class="form-control">
-								<option th:text="#{option.seleccione}" value=""> </option>
+								<!--  se llena con ajax -->
 							</select>
 							<div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
 						</div>
@@ -85,6 +85,14 @@
 <th:block layout:fragment="scripts">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
+				
+		$(function() {
+			loadProfiles();
+		});
+	
+		function loadProfiles() {
+			$("#profile\\.code").load( /*[[@{/profile/all}]]*/ 'url');
+		}
 
 		/*]]>*/
 	</script>
