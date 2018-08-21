@@ -10,7 +10,7 @@ public class UserSearchForm implements Serializable {
 	
 	private String firstName;
 	
-	private String LastName;
+	private String lastName;
 	
 	private String telefonoMovil;
 	
@@ -43,11 +43,11 @@ public class UserSearchForm implements Serializable {
 	}
 
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 
 	public String getTelefonoMovil() {

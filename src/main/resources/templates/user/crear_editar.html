@@ -15,7 +15,14 @@
 		<div class="row">
 			<div class="col-md-8 order-md-1">
 				<h4 class="mb-3" th:text="#{datos-generales}">Subtitulo</h4>
-				<form class="needs-validation" th:object="${crearEditarUserForm}" >
+				<form class="needs-validation" th:object="${crearEditarUserForm}" th:action="@{/users/guardar}" method="post" >
+				
+					<ul>
+				        <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
+				            <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+				            <span th:text="${e.message}">The error message</span>
+				        </li>
+				    </ul>
 				
 					<div class="row">
 						<div class="col-md-6 mb-3">

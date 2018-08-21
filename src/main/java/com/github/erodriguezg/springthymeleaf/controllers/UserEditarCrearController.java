@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +24,8 @@ import com.github.erodriguezg.springthymeleaf.services.UserService;
 @PreAuthorize("hasAnyAuthority('Administrador')")
 @RequestMapping("/users")
 public class UserEditarCrearController {
+	
+	private static final String USER_CREAR_EDITAR_OUTCOME = "user/crear_editar";
 	
 	private static final String EMAIL_DISPONIBLE_ATTR = "email-disponible";
 
@@ -53,7 +55,7 @@ public class UserEditarCrearController {
 		form.setUser(user);
 		
 		model.addAttribute(new CrearEditarUserForm());
-		return "user/crear_editar";
+		return USER_CREAR_EDITAR_OUTCOME;
 	}
 	
 	@GetMapping("/verificar-email")
@@ -72,12 +74,25 @@ public class UserEditarCrearController {
 			}
 		}
 		
-		return "user/crear_editar :: seccion-email";
+		return USER_CREAR_EDITAR_OUTCOME + " :: seccion-email";
 	}
 	
 	@PostMapping("/guardar")
-	public String guardar(@RequestBody User user, BindingResult result) {
-		return "user/crear_editar :: seccion-formulario";
+	public String guardar(@Valid @ModelAttribute  CrearEditarUserForm userForm, BindingResult result, Model model) {
+		model.addAttribute(userForm);
+		if(result.hasErrors()) {
+			log.debug("ocurrieron errores en el formulario");
+			return USER_CREAR_EDITAR_OUTCOME;
+		}
+		
+		userForm.getUser().getProfiles().add(userForm.getProfile());
+		
+		log.debug("persistencia");
+		
+		
+		log.debug("no ocurrieron errores en el formulario");
+		model.addAttribute("mensaje-info", "mensaje de exito");
+		return USER_CREAR_EDITAR_OUTCOME;
 	}
 	
 }

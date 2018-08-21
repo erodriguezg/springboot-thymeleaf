@@ -1,6 +1,7 @@
 package com.github.erodriguezg.springthymeleaf.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -56,7 +57,7 @@ public class User implements Serializable {
 	@NotNull
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "users_profiles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "profile_code", referencedColumnName = "code"))
-	private List<Profile> profiles;
+	private List<Profile> profiles = new ArrayList<>();
 
 	public Long getId() {
 		return id;

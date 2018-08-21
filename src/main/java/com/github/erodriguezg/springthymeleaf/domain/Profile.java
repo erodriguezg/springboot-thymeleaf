@@ -5,12 +5,14 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "profiles")
 public class Profile implements Serializable {
 
 	@Id
+	@NotNull
 	private Integer code;
 	
 	private String name;
@@ -21,7 +23,7 @@ public class Profile implements Serializable {
 
 	public void setCode(Integer code) {
 		this.code = code;
-	}
+	}					
 
 	public String getName() {
 		return name;

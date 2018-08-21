@@ -2,6 +2,7 @@ package com.github.erodriguezg.springthymeleaf.form;
 
 import java.io.Serializable;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.github.erodriguezg.springthymeleaf.domain.Profile;
@@ -10,9 +11,11 @@ import com.github.erodriguezg.springthymeleaf.domain.User;
 public class CrearEditarUserForm implements Serializable {
 
 	@NotNull
+	@Valid
 	private User user;
 	
 	@NotNull
+	@Valid
 	private Profile profile;
 	
 	private boolean modoEditar;
