@@ -1,5 +1,8 @@
 package com.github.erodriguezg.springthymeleaf.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 
@@ -16,8 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.erodriguezg.springthymeleaf.domain.Profile;
 import com.github.erodriguezg.springthymeleaf.domain.User;
 import com.github.erodriguezg.springthymeleaf.form.CrearEditarUserForm;
+import com.github.erodriguezg.springthymeleaf.services.ProfileService;
 import com.github.erodriguezg.springthymeleaf.services.UserService;
 
 @Controller
@@ -34,11 +39,17 @@ public class UserEditarCrearController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private ProfileService profileService;
+	
+	@ModelAttribute("profiles")
+	public List<Profile> getProfiles() {
+		return profileService.findAll();
+	}
 	
 	@GetMapping("/crear-editar")
 	public String iniciarCrearEditar(@RequestParam(required = false) Long id, Model model) {
 		log.debug("inciarCrearEditar -> id: {}", id);
-		
 		User user;
 		boolean modoEditar;
 		if(id != null) {
@@ -49,15 +60,50 @@ public class UserEditarCrearController {
 			modoEditar = false;
 			user = new User();
 		}
-		
 		CrearEditarUserForm form = new CrearEditarUserForm();
 		form.setModoEditar(modoEditar);
 		form.setUser(user);
-		
 		model.addAttribute(new CrearEditarUserForm());
 		return USER_CREAR_EDITAR_OUTCOME;
 	}
 	
+	
+	@PostMapping("/crear-editar")
+	public String guardar(@Valid @ModelAttribute  CrearEditarUserForm userForm, BindingResult result, Model model) {
+		model.addAttribute(userForm);
+		
+		validarConfirmarPassword(userForm, result);
+		
+		if(result.hasErrors()) {
+			log.debug("ocurrieron errores en el formulario");
+			return USER_CREAR_EDITAR_OUTCOME;
+		}
+		
+		List<Profile> profileListSelected = userForm.getCodeProfileSelectedList().stream()
+			.map(code -> {
+				Profile profile = new Profile();
+				profile.setCode(code);
+				return profile;
+			}).collect(Collectors.toList());
+		
+		userForm.getUser().setProfiles(profileListSelected);
+		
+		log.debug("persistencia");
+		log.debug("no ocurrieron errores en el formulario");
+		model.addAttribute("mensaje-info", "mensaje de exito");
+		return USER_CREAR_EDITAR_OUTCOME;
+	}
+	
+	private void validarConfirmarPassword(CrearEditarUserForm userForm, BindingResult result) {
+		String confirmPassword = userForm.getConfirmPassword();
+		String password = userForm.getUser().getPassword();
+		
+		if(confirmPassword != null && password != null && !confirmPassword.equals(password)) {
+			result.rejectValue("confirmPassword", "error.password-no-coinciden");
+		}
+		
+	}
+
 	@GetMapping("/verificar-email")
 	public String verificarExistenciaEmail(
 			@Valid @Email @RequestParam String email,  
@@ -75,24 +121,6 @@ public class UserEditarCrearController {
 		}
 		
 		return USER_CREAR_EDITAR_OUTCOME + " :: seccion-email";
-	}
-	
-	@PostMapping("/guardar")
-	public String guardar(@Valid @ModelAttribute  CrearEditarUserForm userForm, BindingResult result, Model model) {
-		model.addAttribute(userForm);
-		if(result.hasErrors()) {
-			log.debug("ocurrieron errores en el formulario");
-			return USER_CREAR_EDITAR_OUTCOME;
-		}
-		
-		userForm.getUser().getProfiles().add(userForm.getProfile());
-		
-		log.debug("persistencia");
-		
-		
-		log.debug("no ocurrieron errores en el formulario");
-		model.addAttribute("mensaje-info", "mensaje de exito");
-		return USER_CREAR_EDITAR_OUTCOME;
 	}
 	
 }

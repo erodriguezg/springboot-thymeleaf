@@ -1,11 +1,11 @@
 package com.github.erodriguezg.springthymeleaf.form;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.github.erodriguezg.springthymeleaf.domain.Profile;
 import com.github.erodriguezg.springthymeleaf.domain.User;
 
 public class CrearEditarUserForm implements Serializable {
@@ -14,13 +14,19 @@ public class CrearEditarUserForm implements Serializable {
 	@Valid
 	private User user;
 	
-	@NotNull
-	@Valid
-	private Profile profile;
+	private List<Integer> codeProfileSelectedList;
 	
 	private boolean modoEditar;
 	
 	private String confirmPassword;
+
+	public List<Integer> getCodeProfileSelectedList() {
+		return codeProfileSelectedList;
+	}
+
+	public void setCodeProfileSelectedList(List<Integer> codeProfileSelectedList) {
+		this.codeProfileSelectedList = codeProfileSelectedList;
+	}
 
 	public User getUser() {
 		return user;
@@ -38,14 +44,6 @@ public class CrearEditarUserForm implements Serializable {
 		this.modoEditar = modoEditar;
 	}
 
-	public Profile getProfile() {
-		return profile;
-	}
-
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
-
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
@@ -53,8 +51,5 @@ public class CrearEditarUserForm implements Serializable {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-	
-	
-	
 	
 }

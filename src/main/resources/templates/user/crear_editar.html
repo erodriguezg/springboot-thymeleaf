@@ -15,7 +15,7 @@
 		<div class="row">
 			<div class="col-md-8 order-md-1">
 				<h4 class="mb-3" th:text="#{datos-generales}">Subtitulo</h4>
-				<form class="needs-validation" th:object="${crearEditarUserForm}" th:action="@{/users/guardar}" method="post" >
+				<form class="needs-validation" th:object="${crearEditarUserForm}" th:action="@{/users/crear-editar}" method="post" autocomplete="off" >
 				
 					<ul>
 				        <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
@@ -32,9 +32,13 @@
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="profile" th:text="#{perfil}"> <span class="text-muted">*</span></label>
-							<select th:field="*{profile.code}" required="required" class="form-control">
-								<!--  se llena con ajax -->
-							</select>
+							
+							<th:block th:each="profile : ${profiles}" >
+								<br/>
+								<input type="checkbox"  th:field="*{codeProfileSelectedList}" th:value="${profile.code}" />
+								<span th:text="${profile.name}"></span>
+							</th:block>
+							
 							<div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
 						</div>
 					</div>
@@ -68,13 +72,15 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="password" th:text="#{password}"> </label> 
-							<input th:field="*{user.password}" type="password" class="form-control" placeholder="" value="" required="required" />
+							<input th:field="*{user.password}" type="password" class="form-control" placeholder="" value="" required="required" autocomplete="new-password"  />
 							<div class="invalid-feedback">Valid is required.</div>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="confirmarPassword" th:text="#{confirmar-password}"> </label> 
-							<input th:field="*{confirmPassword}" class="form-control" placeholder="" value="" required="required"/>
-							<div class="invalid-feedback">Valid is required.</div>
+							<input th:field="*{confirmPassword}" type="password" class="form-control" 
+								th:classappend="${#fields.hasErrors('confirmPassword')} ? is-invalid : ''" placeholder="" value="" required="required" 
+								autocomplete="new-password" />
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Errror.</div>
 						</div>
 					</div>
 	
@@ -94,7 +100,7 @@
 		/*<![CDATA[*/
 				
 		$(function() {
-			loadProfiles();
+			//loadProfiles();
 		});
 	
 		function loadProfiles() {
