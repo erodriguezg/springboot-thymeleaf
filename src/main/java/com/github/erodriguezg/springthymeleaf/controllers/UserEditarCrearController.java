@@ -73,6 +73,7 @@ public class UserEditarCrearController {
 		model.addAttribute(userForm);
 		
 		validarConfirmarPassword(userForm, result);
+		validarAlMenosUnPerfil(userForm, result);
 		
 		if(result.hasErrors()) {
 			log.debug("ocurrieron errores en el formulario");
@@ -94,6 +95,14 @@ public class UserEditarCrearController {
 		return USER_CREAR_EDITAR_OUTCOME;
 	}
 	
+	private void validarAlMenosUnPerfil(CrearEditarUserForm userForm, BindingResult result) {
+		List<Integer> lista = userForm.getCodeProfileSelectedList();
+		if(lista == null || lista.isEmpty()) {
+			result.rejectValue("codeProfileSelectedList", "error.selecciones-al-menos-uno");
+		}
+		
+	}
+
 	private void validarConfirmarPassword(CrearEditarUserForm userForm, BindingResult result) {
 		String confirmPassword = userForm.getConfirmPassword();
 		String password = userForm.getUser().getPassword();
