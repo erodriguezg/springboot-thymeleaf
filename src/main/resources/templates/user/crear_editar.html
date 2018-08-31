@@ -17,12 +17,14 @@
 				<h4 class="mb-3" th:text="#{datos-generales}">Subtitulo</h4>
 				<form class="needs-validation" th:object="${crearEditarUserForm}" th:action="@{/users/crear-editar}" method="post" autocomplete="off" >
 				
-					<ul>
-				        <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
-				            <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
-				            <span th:text="${e.message}">The error message</span>
-				        </li>
-				    </ul>
+					<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('global')}">
+						<ul>
+					        <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
+					            <span th:text="${e.message}">The error message</span>
+					        </li>
+					    </ul>
+					</div>
+					
 				
 					<div class="row">
 						<div class="col-md-6 mb-3">
@@ -35,11 +37,9 @@
 							<label for="profile" th:text="#{perfil}"> <span class="text-muted">*</span></label>
 							<th:block th:each="profile : ${profiles}" >
 								<br/>
-								<input type="checkbox"  th:field="*{codeProfileSelectedList}" th:value="${profile.code}" 
-									th:classappend="${#fields.hasErrors('codeProfileSelectedList')} ? is-invalid : ''" />
+								<input type="checkbox"  th:field="*{codeProfileSelectedList}" th:value="${profile.code}"/>
 								<span th:text="${profile.name}"></span>
 							</th:block>
-							<div class="invalid-feedback" th:if="${#fields.hasErrors('codeProfileSelectedList')}" th:errors="*{codeProfileSelectedList}" >Error.</div>
 						</div>
 					</div>
 				

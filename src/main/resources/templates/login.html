@@ -30,10 +30,12 @@
 	
 	<div th:if="${param.error}" th:text="#{login.error.credenciales-invalidas}"> error </div>
     <div th:if="${param.logout}" th:text="#{login.msj.terminado-sesion}"> error </div>
+    
 
     <form class="form-signin" th:action="@{/login}" method="post" autocomplete="off">
       <img class="mb-4" th:src="@{/resources/app/svg/bootstrap-solid.svg}" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
+      <p> admin@sistema.net / cambiame </p>
       <label for="username" class="sr-only">Correo electrónico</label>
       <input type="text" id="username" name="username" class="form-control" placeholder="Correo electrónico" required autofocus />
       <label for="password" class="sr-only">Contraseña</label>

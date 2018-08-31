@@ -98,7 +98,7 @@ public class UserEditarCrearController {
 	private void validarAlMenosUnPerfil(CrearEditarUserForm userForm, BindingResult result) {
 		List<Integer> lista = userForm.getCodeProfileSelectedList();
 		if(lista == null || lista.isEmpty()) {
-			result.rejectValue("codeProfileSelectedList", "error.selecciones-al-menos-uno");
+			result.rejectValue(null, "error.seleccionar-un-perfil");
 		}
 		
 	}
