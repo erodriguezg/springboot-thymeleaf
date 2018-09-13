@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
-@NamedEntityGraphs({ @NamedEntityGraph(name = "UserWithProfiles", attributeNodes = @NamedAttributeNode("profiles")) })
+@NamedEntityGraphs({ @NamedEntityGraph(name = "graph.user.profiles", attributeNodes = { @NamedAttributeNode("profiles")}) })
 public class User implements Serializable {
 
 	@Id
