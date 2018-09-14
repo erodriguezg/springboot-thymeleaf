@@ -1,16 +1,18 @@
 version: '3.0'
 
-services: 
+services:
   app1:
     image: ${DOCKER_REGISTRY}springboot-thymeleaft
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      - "JAVA_OPTS=-DMEMCACHE-REDIS-NODE=redis://redis"
-      - "spring.datasource.url=${JDBC_POSTGRESQL_URL}"
+    - "JAVA_OPTS=-DMEMCACHE-REDIS-NODE=redis://redis"
+    - "spring.datasource.url=${BASE_DATOS_JDBC_URL}"
+    - "spring.datasource.username=${BASE_DATOS_USER}"
+    - "spring.datasource.password=${BASE_DATOS_PASS}"
     ports:
-     - "8080:8080"
+    - "8080:8080"
 
   app2:
     image: ${DOCKER_REGISTRY}springboot-thymeleaft
@@ -18,10 +20,12 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - "JAVA_OPTS=-DMEMCACHE-REDIS-NODE=redis://redis"
-      - "spring.datasource.url=${JDBC_POSTGRESQL_URL}"
+    - "JAVA_OPTS=-DMEMCACHE-REDIS-NODE=redis://redis"
+    - "spring.datasource.url=${BASE_DATOS_JDBC_URL}"
+    - "spring.datasource.username=${BASE_DATOS_USER}"
+    - "spring.datasource.password=${BASE_DATOS_PASS}"
     ports:
-     - "8081:8080"
+    - "8081:8080"
 
   redis:
     image: redis:4.0.11-alpine
