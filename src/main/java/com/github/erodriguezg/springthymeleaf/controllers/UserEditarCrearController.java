@@ -1,11 +1,11 @@
 package com.github.erodriguezg.springthymeleaf.controllers;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-import javax.validation.constraints.Email;
-
+import com.github.erodriguezg.springthymeleaf.domain.Profile;
+import com.github.erodriguezg.springthymeleaf.domain.User;
+import com.github.erodriguezg.springthymeleaf.form.CrearEditarUserForm;
+import com.github.erodriguezg.springthymeleaf.services.ProfileService;
+import com.github.erodriguezg.springthymeleaf.services.UserService;
+import com.github.erodriguezg.springthymeleaf.services.exceptions.LogicaNegocioException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +13,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import com.github.erodriguezg.springthymeleaf.domain.Profile;
-import com.github.erodriguezg.springthymeleaf.domain.User;
-import com.github.erodriguezg.springthymeleaf.form.CrearEditarUserForm;
-import com.github.erodriguezg.springthymeleaf.services.ProfileService;
-import com.github.erodriguezg.springthymeleaf.services.UserService;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @PreAuthorize("hasAnyAuthority('Administrador')")
@@ -90,6 +85,21 @@ public class UserEditarCrearController {
 		userForm.getUser().setProfiles(profileListSelected);
 		
 		log.debug("persistencia");
+
+		try {
+            User savedUser = this.userService.guardar(userForm.getUser());
+            userForm.setUser(savedUser);
+        }catch (LogicaNegocioException ex) {
+		    log.trace("Excepcion de negocio: ", ex);
+		    result.reject(ex.getCode(), ex.getArgs(), null);
+
+        }catch (RuntimeException ex) {
+		    log.error("Error Guardar User: ", ex);
+		    result.reject("");
+        }
+
+
+
 		log.debug("no ocurrieron errores en el formulario");
 		model.addAttribute("mensaje-info", "mensaje de exito");
 		return USER_CREAR_EDITAR_OUTCOME;

@@ -30,4 +30,8 @@ public class UserService {
 		return userByEmail.getId().equals(userId);
 	}
 
+	@Transactional(readOnly = false)
+	public User guardar(User user) {
+		return null;
+	}
 }
