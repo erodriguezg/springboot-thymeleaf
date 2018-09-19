@@ -6,6 +6,7 @@ import com.github.erodriguezg.springthymeleaf.form.CrearEditarUserForm;
 import com.github.erodriguezg.springthymeleaf.services.ProfileService;
 import com.github.erodriguezg.springthymeleaf.services.UserService;
 import com.github.erodriguezg.springthymeleaf.services.exceptions.LogicaNegocioException;
+import com.github.erodriguezg.springthymeleaf.utils.ConstantesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,19 +90,17 @@ public class UserEditarCrearController {
 		try {
             User savedUser = this.userService.guardar(userForm.getUser());
             userForm.setUser(savedUser);
+            model.addAttribute(ConstantesUtil.FLAG_FLUJO_EXITOSO, Boolean.TRUE);
+			log.debug("no ocurrieron errores en el formulario");
+			model.addAttribute("mensaje-info", "mensaje de exito");
         }catch (LogicaNegocioException ex) {
 		    log.trace("Excepcion de negocio: ", ex);
 		    result.reject(ex.getCode(), ex.getArgs(), null);
-
         }catch (RuntimeException ex) {
 		    log.error("Error Guardar User: ", ex);
 		    result.reject("");
         }
 
-
-
-		log.debug("no ocurrieron errores en el formulario");
-		model.addAttribute("mensaje-info", "mensaje de exito");
 		return USER_CREAR_EDITAR_OUTCOME;
 	}
 	

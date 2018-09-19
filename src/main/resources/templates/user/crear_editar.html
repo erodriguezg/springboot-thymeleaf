@@ -30,7 +30,7 @@
 						<div class="col-md-6 mb-3">
 							<label for="email" th:text="#{email}">Email <span class="text-muted">*</span></label>
 							<input type="email" class="form-control" th:field="*{user.email}" 
-								th:classappend="${#fields.hasErrors('user.email')} ? is-invalid : ''" th:placeholder="#{correo-ejemplo}" required="required" />
+								th:classappend="${#fields.hasErrors('user.email')} ? 'is-invalid' : ''" th:placeholder="#{correo-ejemplo}" required="required" />
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}" >Error.</div>
 						</div>
 						<div class="col-md-6 mb-3">
@@ -47,13 +47,13 @@
 						<div class="col-md-6 mb-3">
 							<label for="firstName" th:text="#{nombres}">First name</label> 
 							<input th:field="*{user.firstName}" type="text" class="form-control" 
-								th:classappend="${#fields.hasErrors('user.firstName')} ? is-invalid : ''" placeholder="" value="" required="required" />
+								th:classappend="${#fields.hasErrors('user.firstName')} ? 'is-invalid' : ''" placeholder="" value="" required="required" />
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('user.firstName')}" th:errors="*{user.firstName}" >Error.</div>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="lastName" th:text="#{apellidos}">Last name</label> 
 							<input th:field="*{user.lastName}" type="text" class="form-control" 
-								th:classappend="${#fields.hasErrors('user.lastName')} ? is-invalid : ''" placeholder="" value="" required="required" />
+								th:classappend="${#fields.hasErrors('user.lastName')} ? 'is-invalid' : ''" placeholder="" value="" required="required" />
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('user.lastName')}" th:errors="*{user.lastName}" >Error.</div>
 						</div>
 					</div>
@@ -62,13 +62,13 @@
 						<div class="col-md-6 mb-3">
 							<label for="mobilePhone" th:text="#{telefono-movil}"> </label> 
 							<input th:field="*{user.telefonoMovil}" type="tel" class="form-control"
-								th:classappend="${#fields.hasErrors('user.telefonoMovil')} ? is-invalid : ''" placeholder="" value="" required="required" />
+								th:classappend="${#fields.hasErrors('user.telefonoMovil')} ? 'is-invalid' : ''" placeholder="" value="" required="required" />
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('user.telefonoMovil')}" th:errors="*{user.telefonoMovil}" >Error.</div>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="phone" th:text="#{telefono-fijo}">Last name</label> 
 							<input th:field="*{user.telefonoFijo}" type="tel" class="form-control" 
-								th:classappend="${#fields.hasErrors('user.telefonoFijo')} ? is-invalid : ''" placeholder="" value="" />
+								th:classappend="${#fields.hasErrors('user.telefonoFijo')} ? 'is-invalid' : ''" placeholder="" value="" />
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('user.telefonoFijo')}" th:errors="*{user.telefonoFijo}" >Error.</div>
 						</div>
 					</div>
@@ -77,19 +77,21 @@
 						<div class="col-md-6 mb-3">
 							<label for="password" th:text="#{password}"> </label> 
 							<input th:field="*{user.password}" type="password" class="form-control" 
-								th:classappend="${#fields.hasErrors('user.password')} ? is-invalid : ''" placeholder="" value="" required="required" autocomplete="new-password"  />
+								th:classappend="${#fields.hasErrors('user.password')} ? 'is-invalid' : ''" placeholder="" value="" required="required" autocomplete="new-password"  />
 							<div class="invalid-feedback"  th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}" >Error.</div>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="confirmarPassword" th:text="#{confirmar-password}"> </label> 
 							<input th:field="*{confirmPassword}" type="password" class="form-control" 
-								th:classappend="${#fields.hasErrors('confirmPassword')} ? is-invalid : ''" placeholder="" value="" required="required" 
+								th:classappend="${#fields.hasErrors('confirmPassword')} ? 'is-invalid' : ''" placeholder="" value="" required="required"
 								autocomplete="new-password" />
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Errror.</div>
 						</div>
 					</div>
-	
+
 					<hr class="mb-4">
+
+					<input type="hidden" id="flagFlujoExitoso" th:value="${flagFlujoExitoso}"  />
 					
 					<button class="btn btn-primary btn-lg btn-block" type="submit" th:text="#{guardar}"> </button>
 					<button class="btn btn-seconday btn-lg btn-block" type="submit" th:text="#{cancelar}"> </button>
@@ -106,10 +108,18 @@
 				
 		$(function() {
 			//loadProfiles();
+			showDialogExito();
 		});
 	
 		function loadProfiles() {
 			$("#profile\\.code").load( /*[[@{/profile/all}]]*/ 'url');
+		}
+
+		function showDialogExito() {
+		    var flagFlujoExitoso= $("#flagFlujoExitoso");
+		    if(flagFlujoExitoso && flagFlujoExitoso.val()) {
+		        alert('Guardo con exito y se debe hacer redirect!');
+			}
 		}
 
 		/*]]>*/

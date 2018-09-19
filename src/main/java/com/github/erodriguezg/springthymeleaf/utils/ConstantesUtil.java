@@ -2,7 +2,7 @@ package com.github.erodriguezg.springthymeleaf.utils;
 
 public final class ConstantesUtil {
 
-	private ConstantesUtil() {
+    private ConstantesUtil() {
 		// empty
 	}
 
@@ -18,5 +18,7 @@ public final class ConstantesUtil {
 	public static final String MSJ_HABILITAR_USUARIO = "Se habilito el usuario";
 	public static final String MSJ_DESHABILITAR_A_SI_MISMO = "No puede deshabilitar a si mismo";
 	public static final String MSJ_ELIMINAR_A_SI_MISMO = "No puede eliminar a si mismo";
+
+	public static final String FLAG_FLUJO_EXITOSO = "flagFlujoExitoso";
 
 }
