@@ -92,7 +92,7 @@ public class UserEditarCrearController {
             userForm.setUser(savedUser);
             model.addAttribute(ConstantesUtil.FLAG_FLUJO_EXITOSO, Boolean.TRUE);
 			log.debug("no ocurrieron errores en el formulario");
-			model.addAttribute("mensaje-info", "mensaje de exito");
+			model.addAttribute(ConstantesUtil.MSJ_INFO_GLOBAL, "mensaje de exito");
         }catch (LogicaNegocioException ex) {
 		    log.trace("Excepcion de negocio: ", ex);
 		    result.reject(ex.getCode(), ex.getArgs(), null);

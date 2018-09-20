@@ -2,6 +2,8 @@ package com.github.erodriguezg.springthymeleaf.utils;
 
 public final class ConstantesUtil {
 
+	public static final String MSJ_INFO_GLOBAL = "msjInfoGlobal";
+
     private ConstantesUtil() {
 		// empty
 	}
