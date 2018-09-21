@@ -9,4 +9,17 @@ $(function () {
     $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
+
+    //dialogo info global
+    var dialogoInfoGlobalVisible = $('#dialogoInfoGlobalVisible');
+    if(dialogoInfoGlobalVisible && dialogoInfoGlobalVisible.val()) {
+        showDialogoInfoGlobal();
+    }
+
 });
+
+//funciones dialogo info global
+
+function showDialogoInfoGlobal() {
+    $('#dialogoInfoGlobal').modal('show');
+}

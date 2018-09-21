@@ -2,8 +2,6 @@ package com.github.erodriguezg.springthymeleaf.utils;
 
 public final class ConstantesUtil {
 
-	public static final String MSJ_INFO_GLOBAL = "msjInfoGlobal";
-
     private ConstantesUtil() {
 		// empty
 	}
@@ -21,6 +19,7 @@ public final class ConstantesUtil {
 	public static final String MSJ_DESHABILITAR_A_SI_MISMO = "No puede deshabilitar a si mismo";
 	public static final String MSJ_ELIMINAR_A_SI_MISMO = "No puede eliminar a si mismo";
 
-	public static final String FLAG_FLUJO_EXITOSO = "flagFlujoExitoso";
 
+	//dialogos globales
+	public static final String DIALOGO_INFO_GLOBAL_VISIBLE = "dialogoInfoGlobalVisible";
 }

@@ -90,9 +90,8 @@ public class UserEditarCrearController {
 		try {
             User savedUser = this.userService.guardar(userForm.getUser());
             userForm.setUser(savedUser);
-            model.addAttribute(ConstantesUtil.FLAG_FLUJO_EXITOSO, Boolean.TRUE);
 			log.debug("no ocurrieron errores en el formulario");
-			model.addAttribute(ConstantesUtil.MSJ_INFO_GLOBAL, "mensaje de exito");
+			model.addAttribute(ConstantesUtil.DIALOGO_INFO_GLOBAL_VISIBLE, "true");
         }catch (LogicaNegocioException ex) {
 		    log.trace("Excepcion de negocio: ", ex);
 		    result.reject(ex.getCode(), ex.getArgs(), null);
